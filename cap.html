@@ -42,7 +42,10 @@
             document.getElementById('result').innerHTML = textoAleatorio;
             // Limpar o canvas
             contexto.clearRect(0, 0, canvas.width, canvas.height);
-            
+
+	    contexto.fillStyle = "white";
+            contexto.fillRect(0, 0, canvas.width, canvas.height);
+		
             // Definir o estilo da fonte e cor
             contexto.font = '30px Arial';
             contexto.fillStyle = 'black';
