@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Imagem com Texto Aleatório</title>
+    
+</head>
+<body>
+	<div id="c"></div>
+    <br>
+    <span id="result"></span>
+    <br>
+    <!--button onclick="gerarImagem()">Gerar Texto Aleatório</button--> 
+
+    <script>
+        function gerarTextoAleatorio(tamanho) {
+            const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let texto = '';
+            for (let i = 0; i < tamanho; i++) {
+                texto += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+            }
+            return texto;
+        }
+
+        function gerarImagem() {
+        	document.querySelectorAll('#canvasimg').forEach(e => e.remove());
+
+        	const mainbody = document.getElementById('c'); //or target div
+
+            const divbtn = document.createElement('canvas');
+            divbtn.setAttribute('id','canvas');
+            divbtn.setAttribute('width','400');
+            divbtn.setAttribute('height','100');         
+            
+    		mainbody.appendChild(divbtn);
+            
+            
+            const canvas = document.getElementById('canvas');
+            const contexto = canvas.getContext('2d');
+            const textoAleatorio = gerarTextoAleatorio(10);  // Gera um texto aleatório com 10 caracteres
+            document.getElementById('result').innerHTML = textoAleatorio;
+            // Limpar o canvas
+            contexto.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Definir o estilo da fonte e cor
+            contexto.font = '30px Arial';
+            contexto.fillStyle = 'black';
+            
+            // Desenhar o texto no canvas
+            contexto.fillText(textoAleatorio, 50, 50);
+            
+            const img    = canvas.toDataURL('image/png');
+            const canvasimg = document.createElement('img');
+            canvasimg.setAttribute('id','canvasimg');
+            canvasimg.setAttribute('width','400');
+            canvasimg.setAttribute('height','100');         
+            canvasimg.src = img;
+            
+        	document.querySelectorAll('#canvas').forEach(e => e.remove());
+
+    		mainbody.appendChild(canvasimg);
+        }
+
+        // Gera uma imagem ao carregar a página
+        gerarImagem();
+    </script>
+</body>
+</html>
