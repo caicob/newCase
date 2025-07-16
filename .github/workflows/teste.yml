@@ -1,0 +1,31 @@
+name: Manual Deploy Workflow
+
+# Habilita o gatilho manual e define parâmetros de entrada
+on:
+  workflow_dispatch:
+    inputs:
+      # Parâmetro de entrada para definir o ambiente (ex: staging ou production)
+      environment:
+        description: 'Ambiente para o deploy'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      # Parâmetro para um log customizado
+      logMessage:
+        description: 'Mensagem de log customizada'
+        required: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Usando os inputs que foram passados na chamada da API
+      - name: Deploy to environment
+        run: |
+          echo "Iniciando deploy para o ambiente: ${{ github.event.inputs.environment }}"
+          echo "Mensagem de log: ${{ github.event.inputs.logMessage || 'Nenhuma mensagem fornecida' }}"
+          # Aqui entraria seu script de deploy real...
+          echo "Deploy concluído!"
