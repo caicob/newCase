@@ -14,7 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Usando os inputs que foram passados na chamada da API
+
+      - name: Parse JSON string from input
+        id: parse_json # Damos um ID a este passo para referenciar seus outputs
+        run: |
+          echo "ref=${{ fromJson(github.event.inputs.entrada).ref }}" >> $GITHUB_OUTPUT
+          echo "input_env=${{ fromJson(github.event.inputs.entrada).inputs.environment }}" >> $GITHUB_OUTPUT
+
+
       - name: Deploy to environment
         run: |
-          echo "Iniciando deploy para o ambiente: ${{ github.event.inputs.entrada }}"
+          echo "ref: ${{ github.steps.parse_json.outputs.ref }}"
+          echo "Iniciando deploy para o ambiente: ${{ github.steps.parse_json.outputs.input_env }}"
           echo "Deploy concluído!"
