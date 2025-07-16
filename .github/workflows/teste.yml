@@ -24,6 +24,6 @@ jobs:
 
       - name: Deploy to environment
         run: |
-          echo "ref: ${{ github.steps.parse_json.outputs.ref }}"
-          echo "Iniciando deploy para o ambiente: ${{ github.steps.parse_json.outputs.input_env }}"
+          echo "ref: ${{ steps.parse_json.outputs.ref }}"
+          echo "Iniciando deploy para o ambiente: ${{ steps.parse_json.outputs.input_env }}"
           echo "Deploy concluído!"
